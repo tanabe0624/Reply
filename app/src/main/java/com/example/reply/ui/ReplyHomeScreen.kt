@@ -81,13 +81,22 @@ fun ReplyHomeScreen(
             text = stringResource(id = R.string.tab_spam)
         )
     )
-    ReplyAppContent(
-        replyUiState = replyUiState,
-        onTabPressed = onTabPressed,
-        onEmailCardPressed = onEmailCardPressed,
-        navigationItemContentList = navigationItemContentList,
-        modifier = modifier
-    )
+    if (replyUiState.isShowingHomepage) { //replyUiStateオブジェクトは状態オブジェクト。isShowingHomepage プロパティが変化すると、ReplyHomeScreen コンポーザブルが再コンポーズされ、if/else 文が再評価される。
+        ReplyAppContent(
+            replyUiState = replyUiState,
+            onTabPressed = onTabPressed,
+            onEmailCardPressed = onEmailCardPressed,
+            navigationItemContentList = navigationItemContentList,
+            modifier = modifier
+        )
+    }else{
+        ReplyDetailsScreen(
+            replyUiState = replyUiState,
+            onBackPressed = onDetailScreenBackPressed,
+            modifier = modifier,
+
+        )
+    }
 }
 
 @Composable
